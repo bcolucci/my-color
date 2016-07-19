@@ -5,12 +5,19 @@
   "author": "Brice Colucci <brice.colucci@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "node bootstrap.js"
+  },
   "dependencies": {
     "lodash": "^4.13.1",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
     "redux": "^3.5.2"
   },
   "devDependencies": {
+    "babel-plugin-transform-react-jsx": "^6.8.0",
     "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.11.1",
     "babel-register": "^6.3.13"
   }
 }
