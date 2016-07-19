@@ -1,0 +1,15 @@
+{
+  "name": "my-color",
+  "version": "1.0.0",
+  "description": "Testing Redux",
+  "author": "Brice Colucci <brice.colucci@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.13.1",
+    "redux": "^3.5.2"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.3.13"
+  }
+}
