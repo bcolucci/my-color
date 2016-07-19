@@ -1,9 +1,10 @@
 {
   "name": "my-color",
   "version": "1.0.0",
-  "description": "Testing Redux",
+  "description": "Working with Redux/React/Babel/Webpack together",
   "author": "Brice Colucci <brice.colucci@gmail.com>",
   "license": "MIT",
+  "private": true,
   "dependencies": {
     "lodash": "^4.13.1",
     "redux": "^3.5.2"
