@@ -14,29 +14,26 @@ import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 
 import configureStore from '../common/configureStore'
-import App from '../common/container'
+import MyColor from '../common/container'
 
-const htmlTemplate = String(fs.readFileSync(`${__dirname}/../index.html`))
-
-const renderPage = (html, preloadedState) => htmlTemplate.replace('%HTML%', html)
-  .replace('%STATE%', JSON.stringify(preloadedState))
+const renderPage = (html, state) => String(fs.readFileSync(`${__dirname}/../index.html`))
+  .replace('%HTML%', html)
+  .replace('%STATE%', JSON.stringify(state))
 
 const handleRender = (req, res) => {
 
-  const preloadedState = {}
-
-  const store = configureStore(preloadedState)
+  const state = {}
+  const store = configureStore(state)
 
   const html = renderToString(
     <Provider store={store}>
-      <App />
+      <MyColor/>
     </Provider>
   )
 
   const finalState = store.getState()
 
   res.send(renderPage(html, finalState))
-
 }
 
 // ---
@@ -45,11 +42,10 @@ const app = new Express
 const port = process.env.PORT
 
 const compiler = webpack(webpackConfig)
-
-app.use(Express.static(`${__dirname}/static`))
-
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
+
+app.use(Express.static(`${__dirname}/static`))
 
 app.use(handleRender)
 

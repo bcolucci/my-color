@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
 
-class Hello extends Component {
+class MyColor extends Component {
 
   render() {
     const { color, text } = this.props.turn
@@ -13,6 +13,6 @@ class Hello extends Component {
 
 }
 
-Hello.propTypes = {}
+MyColor.propTypes = {}
 
-export default Hello
+export default MyColor
