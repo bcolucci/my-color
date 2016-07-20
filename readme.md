@@ -4,6 +4,8 @@ for a little server-side rendering game.
 
 In progress.
 
+[https://redux-my-color.herokuapp.com/](https://redux-my-color.herokuapp.com/)
+
 The Game:
 
 - The game show the name of a color, but the name will be colored with another color.

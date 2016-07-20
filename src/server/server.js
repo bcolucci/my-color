@@ -42,7 +42,7 @@ const handleRender = (req, res) => {
 // ---
 
 const app = new Express
-const port = 3210
+const port = process.env.PORT
 
 const compiler = webpack(webpackConfig)
 
