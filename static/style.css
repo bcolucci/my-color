@@ -13,6 +13,26 @@ html,body{
   font-family:sans-serif;
 }
 
+#buttons{
+  margin-top:30px;
+}
+
+.btn{
+  width:100px;
+  height:40px;
+  outline:none;
+  border:1px solid #ccc;
+  font-size:1.5em;
+  margin-left:5px;
+}
+
+.btn:hover{
+  cursor:pointer;
+  box-shadow:inset 1px 1px 3px 1px #8C8C8C;
+}
+
+.btn:first-child{margin-left:0}
+
 .color-red{color:#b32400}
 .color-green{color:#29a329}
 .color-blue{color:#0066cc}

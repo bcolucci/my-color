@@ -45,7 +45,7 @@ const compiler = webpack(webpackConfig)
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
 
-app.use(Express.static(`${__dirname}/static`))
+app.use(Express.static(`${__dirname}/../../static`))
 
 app.use(handleRender)
 
