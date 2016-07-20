@@ -2,7 +2,9 @@
 Working directory to learn more deeply how to use redux, react, babel and webpack together
 for a little server-side rendering game.
 
-In progress.
+**in progress...**
+
+Online preview ():
 
 [https://redux-my-color.herokuapp.com/](https://redux-my-color.herokuapp.com/)
 
@@ -18,3 +20,9 @@ Goals of my work:
 - Learn more how to make server-side rendering with React (and learn more React too...)
 - Learn more about Webpack (universal JavaScript)
 - Make some machine learning (try to find the best patterns to win against the user)
+
+Todo:
+
+- Make the color button component
+- Manage the life-cycle of the state
+- Create the timer
