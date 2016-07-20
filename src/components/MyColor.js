@@ -1,8 +1,11 @@
 
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
+import Timer from './Timer'
 import ColorButton from './ColorButton'
-import colors from '../colors'
+import colors from '../common/colors'
+
+const TIMER_NB_TICKS = 5;
 
 class MyColor extends Component {
 
@@ -38,6 +41,7 @@ class MyColor extends Component {
     this.turns.push([ color, text ])
     return (
       <div>
+        <Timer nbTicks={TIMER_NB_TICKS}/>
         <div id="text" className={classNames(`color-${color}`)}>{text}</div>
         <div id="answer">{this.answer()}</div>
         <div id="buttons">{this.createButtons()}</div>
