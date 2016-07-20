@@ -16,7 +16,7 @@ import { Provider } from 'react-redux'
 import configureStore from '../common/configureStore'
 import MyColor from '../common/container'
 
-const renderPage = (html, state) => String(fs.readFileSync(`${__dirname}/../index.html`))
+const renderPage = (html, state) => String(fs.readFileSync(`${__dirname}/../../index.html`))
   .replace('%HTML%', html)
   .replace('%STATE%', JSON.stringify(state))
 
