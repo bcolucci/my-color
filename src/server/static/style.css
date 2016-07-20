@@ -1,0 +1,19 @@
+html,body{
+  background-color:#eee;
+}
+
+#app{
+  display:block;
+  margin-top:5%;
+  text-align:center;
+}
+
+#text{
+  font-size:8em;
+  font-family:sans-serif;
+}
+
+.color-red{color:#b32400}
+.color-green{color:#29a329}
+.color-blue{color:#0066cc}
+.color-yellow{color:#e6e600}

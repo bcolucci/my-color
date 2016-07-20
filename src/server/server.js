@@ -1,7 +1,8 @@
 
+import fs from 'fs'
+import qs from 'qs'
 import path from 'path'
 import Express from 'express'
-import qs from 'qs'
 
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
@@ -15,21 +16,10 @@ import { Provider } from 'react-redux'
 import configureStore from '../common/configureStore'
 import App from '../common/container'
 
-const renderPage = (html, preloadedState) => `
-  <!doctype html>
-  <html>
-    <head>
-      <title>My Color</title>
-    </head>
-    <body>
-      <div id="app">${html}</div>
-      <script>
-        window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)}
-      </script>
-      <script src="/app.js"></script>
-    </body>
-  </html>
-`
+const htmlTemplate = String(fs.readFileSync(`${__dirname}/../index.html`))
+
+const renderPage = (html, preloadedState) => htmlTemplate.replace('%HTML%', html)
+  .replace('%STATE%', JSON.stringify(preloadedState))
 
 const handleRender = (req, res) => {
 
@@ -55,6 +45,8 @@ const app = new Express
 const port = 3210
 
 const compiler = webpack(webpackConfig)
+
+app.use(Express.static(`${__dirname}/static`))
 
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
 app.use(webpackHotMiddleware(compiler))
