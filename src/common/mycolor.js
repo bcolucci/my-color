@@ -10,7 +10,10 @@ export default (turnGenerator) => (previousState, action) => {
     }
     if (!state.end)
       state.turn = turnGenerator()
-    return state;
+    return state
+  } else if (action.type === 'save') {
+    console.log('save', JSON.stringify(action.turns))
+    //TODO
   }
   return previousState
 }

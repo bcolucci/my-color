@@ -6,7 +6,7 @@ class ColorButton extends Component {
 
   render() {
     const { color, clickNotifier } = this.props
-    return <button className={classNames('btn', `btn-${color}`)} onClick={clickNotifier}>{color}</button>
+    return <button className={classNames('btn', `btn-${color}`)} onClick={clickNotifier}/>
   }
 
 }
