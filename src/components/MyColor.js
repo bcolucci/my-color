@@ -56,7 +56,7 @@ class MyColor extends Component {
       <div>
         <div id="text" className={classNames(`color-${turn.color}`)}>{turn.text}</div>
         <div id="answer">
-          {frame === 1 ? 'Take your chance!' : 'Good, continue!'}
+          {frame === 0 ? 'Take your chance!' : 'Good, continue!'}
           <div id="score">{this.props.score}pts</div>
         </div>
         <Timer remaining={remainingTime} resetCallback={resetCallback} endNotifier={onTimerEnd}/>
