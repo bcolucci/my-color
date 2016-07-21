@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
 })
 
 //TODO
-router.post('/save/:end', (req, res) => res.json('save', req.body));
+router.post('/save', (req, res) => res.json('save', req.body));
 
 app.listen(port, (err) => {
   if (err) return console.error(err)

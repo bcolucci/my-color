@@ -34,7 +34,7 @@ export default (turnGenerator) => (previousState = initialState(turnGenerator), 
       state = _.merge(state, m)
     } else if (action.type === Actions.TIMER_END)
       state = _.merge(state, { end: 'timerEnd' })
-    console.log(JSON.stringify(state))
+    //console.log(JSON.stringify(state))
     return state
   }
   return previousState
