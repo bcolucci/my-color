@@ -6,6 +6,8 @@ for a little server-side rendering game.
 
 **in progress...**
 
+![alt screenshot](https://github.com/bcolucci/my-color/blob/master/screenshot.png "Screenshot")
+
 Online preview:
 
 [https://redux-my-color.herokuapp.com/](https://redux-my-color.herokuapp.com/)
