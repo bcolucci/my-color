@@ -3,6 +3,7 @@ import fs from 'fs'
 import qs from 'qs'
 import path from 'path'
 import Express from 'express'
+import bodyParser from 'body-parser'
 
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
@@ -20,25 +21,10 @@ const renderPage = (html, state) => String(fs.readFileSync(`${__dirname}/../../i
   .replace('%HTML%', html)
   .replace('%STATE%', JSON.stringify(state))
 
-const handleRender = (req, res) => {
-
-  const state = {}
-  const store = configureStore(state)
-
-  const html = renderToString(
-    <Provider store={store}>
-      <MyColor/>
-    </Provider>
-  )
-
-  const finalState = store.getState()
-
-  res.send(renderPage(html, finalState))
-}
-
 // ---
 
 const app = new Express
+const router = new Express.Router
 const port = process.env.PORT
 
 const compiler = webpack(webpackConfig)
@@ -47,7 +33,23 @@ app.use(webpackHotMiddleware(compiler))
 
 app.use(Express.static(`${__dirname}/../../static`))
 
-app.use(handleRender)
+app.use(bodyParser.json())
+app.use(router)
+
+router.get('/', (req, res) => {
+  const store = configureStore({})
+  const html = renderToString(
+    <Provider store={store}>
+      <MyColor/>
+    </Provider>
+  )
+  res.send(renderPage(html, store.getState()))
+})
+
+router.post('/save/:end', (req, res) => {
+  console.log(req.params.end, req.body)
+  res.json('ok');
+});
 
 app.listen(port, (err) => {
   if (err) return console.error(err)

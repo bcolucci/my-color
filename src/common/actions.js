@@ -1,8 +1,11 @@
 
+export const PLAY = 'play';
+export const TIMER_END = 'timerEnd'
+
 export function play(color) {
-  return { type: 'play', color: color }
+  return { type: PLAY, color: color }
 }
 
-export function save(turns) {
-  return { type: 'save', turns: turns }
+export function timerEnd(color) {
+  return { type: TIMER_END, color: color }
 }

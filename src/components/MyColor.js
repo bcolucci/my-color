@@ -1,11 +1,13 @@
 
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
+import axios from 'axios'
 import Timer from './Timer'
 import ColorButton from './ColorButton'
+import Replay from './Replay'
 import colors from '../common/colors'
 
-const TIMER_NB_TICKS = 5;
+const TIMER_REMAINING = 2000
 
 class MyColor extends Component {
 
@@ -14,36 +16,47 @@ class MyColor extends Component {
     this.turns = []
   }
 
-  onPlay(color) {
+  saveTurns(end) {
+    this.turns.pop()
+    axios
+      .post(`/save/${end}`, this.turns)
+      .catch((err) => console.error(err))
+  }
+
+  resetCallback(callbackRetriever) {
+    this.resetTimer = callbackRetriever()
+  }
+
+  play(color) {
+    this.resetTimer()
     this.props.play(color)
   }
 
   createButtons() {
-    return colors.map(c => {
-      const clickNotifier = this.onPlay.bind(this, c)
-      return <ColorButton key={`btn-${c}`} color={c} clickNotifier={clickNotifier}/>
+    return colors.map((color) => {
+      return <ColorButton key={`btn-${color}`} color={color} clickNotifier={() => this.play(color)}/>
     }, this)
   }
 
-  answer() {
-    const { frame, end } = this.props
-    if (frame === 0)
-      return 'Take your chance!'
-    if (end) {
-      this.props.save(this.turns)
-      return 'You loose :('
-    }
-    return 'Good, continue!'
-  }
-
   render() {
-    const { color, text } = this.props.turn
-    this.turns.push([ color, text ])
+
+    const { frame, end, turn } = this.props
+
+    if (end) {
+      this.saveTurns(end)
+      return <Replay/>
+    }
+
+    this.turns.push([ turn.text, turn.color ])
+
+    const resetCallback = this.resetCallback.bind(this)
+    const onTimerEnd = this.props.timerEnd.bind(this)
+
     return (
       <div>
-        <Timer nbTicks={TIMER_NB_TICKS}/>
-        <div id="text" className={classNames(`color-${color}`)}>{text}</div>
-        <div id="answer">{this.answer()}</div>
+        <Timer remaining={TIMER_REMAINING} resetCallback={resetCallback} endNotifier={onTimerEnd}/>
+        <div id="text" className={classNames(`color-${turn.color}`)}>{turn.text}</div>
+        <div id="answer">{frame === 0 ? 'Take your chance!' : 'Good, continue!'}</div>
         <div id="buttons">{this.createButtons()}</div>
       </div>
     )

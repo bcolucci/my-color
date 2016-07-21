@@ -1,23 +1,45 @@
 
 import React, { Component, PropTypes } from 'react'
 
+const TICK_INTERVAL = 10
+
 class Timer extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { remaining: this.props.nbTicks }
+    this.state = { remaining: this.props.remaining }
   }
 
-  componentDidMount() {
-    this.timer = setInterval(this.tick.bind(this), 1000);
+  reset() {
+    this.setState({ remaining: this.props.remaining })
   }
 
-  componentWillUnmount() {
+  startTimer() {
+    this.timer = setInterval(this.tick.bind(this), TICK_INTERVAL);
+  }
+
+  stopTimer() {
     clearInterval(this.timer);
   }
 
+  componentDidMount() {
+    this.startTimer()
+
+    const resetCallback = this.reset.bind(this)
+    this.props.resetCallback(() => resetCallback)
+  }
+
+  componentWillUnmount() {
+    this.stopTimer()
+  }
+
   tick() {
-    this.setState({ remaining: this.state.remaining - 1 });
+    const remaining = this.state.remaining - TICK_INTERVAL
+    this.setState({ remaining: remaining })
+    if (remaining === 0) {
+      this.stopTimer()
+      this.props.endNotifier()
+    }
   }
 
   render() {
@@ -27,7 +49,9 @@ class Timer extends Component {
 }
 
 Timer.propTypes = {
-  nbTicks: React.PropTypes.number
+  remaining: React.PropTypes.number,
+  resetCallback: React.PropTypes.func,
+  endNotifier: React.PropTypes.func
 }
 
 export default Timer

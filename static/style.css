@@ -21,8 +21,14 @@
   color:#666;
 }
 
-#answer,#buttons{
+#answer,#buttons,#loose button{
   margin-top:30px;
+}
+
+#loose p{
+  font-weight:bold;
+  font-size:2em;
+  color:#b32400;
 }
 
 .btn{
