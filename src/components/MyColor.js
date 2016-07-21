@@ -4,10 +4,8 @@ import classNames from 'classnames'
 import axios from 'axios'
 import Timer from './Timer'
 import ColorButton from './ColorButton'
-import BestScores from './BestScores'
+import Footer from './Footer'
 import Replay from './Replay'
-
-const GITHUB = 'https://github.com/bcolucci/my-color'
 
 class MyColor extends Component {
 
@@ -66,8 +64,7 @@ class MyColor extends Component {
         </div>
         <Timer remaining={remainingTime} resetCallback={resetCallback} endNotifier={onTimerEnd}/>
         <div id="buttons">{buttons}</div>
-        <p><a href="https://github.com/bcolucci/my-color" target="_blank">{GITHUB}</a></p>
-        <BestScores/>
+        <Footer/>
       </div>
     )
   }

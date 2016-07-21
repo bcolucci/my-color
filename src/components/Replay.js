@@ -1,6 +1,6 @@
 
 import React, { Component, PropTypes } from 'react'
-import BestScores from './BestScores'
+import Footer from './Footer'
 
 class Replay extends Component {
 
@@ -21,7 +21,7 @@ class Replay extends Component {
           </p>
           <button type="submit">Save and replay</button>
         </form>
-        <BestScores/>
+        <Footer/>
       </div>
     )
   }
