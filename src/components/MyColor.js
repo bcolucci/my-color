@@ -7,7 +7,7 @@ import ColorButton from './ColorButton'
 import Replay from './Replay'
 import colors from '../common/colors'
 
-const TIMER_REMAINING = 2000
+const TIMER_REMAINING = 3000
 
 class MyColor extends Component {
 
@@ -54,9 +54,9 @@ class MyColor extends Component {
 
     return (
       <div>
-        <Timer remaining={TIMER_REMAINING} resetCallback={resetCallback} endNotifier={onTimerEnd}/>
         <div id="text" className={classNames(`color-${turn.color}`)}>{turn.text}</div>
         <div id="answer">{frame === 0 ? 'Take your chance!' : 'Good, continue!'}</div>
+        <Timer remaining={TIMER_REMAINING} resetCallback={resetCallback} endNotifier={onTimerEnd}/>
         <div id="buttons">{this.createButtons()}</div>
       </div>
     )

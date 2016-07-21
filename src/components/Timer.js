@@ -43,7 +43,14 @@ class Timer extends Component {
   }
 
   render() {
-    return <div id="timer">{this.state.remaining}s</div>
+    const pct = Math.floor(this.state.remaining * 100 / this.props.remaining)
+    return (
+      <div id="timer">
+        <div className="meter">
+          <span style={{ width:`${pct}%` }}></span>
+        </div>
+      </div>
+    )
   }
 
 }
