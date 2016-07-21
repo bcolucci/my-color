@@ -14,7 +14,7 @@ const initialState = (turnGenerator) => {
 }
 
 export default (turnGenerator) => (previousState = initialState(turnGenerator), action) => {
-  if (Actions.ACTIONS.includes(action.type)) {
+  if (Actions.ACTIONS.indexOf(action.type) > -1) {
     let state = {
       frame: previousState.frame,
       score: previousState.score,
