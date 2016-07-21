@@ -7,11 +7,11 @@ class Timer extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { remaining: this.props.remaining }
+    this.state = { remaining: this.props.remaining() }
   }
 
   reset() {
-    this.setState({ remaining: this.props.remaining })
+    this.setState({ remaining: this.props.remaining() })
   }
 
   startTimer() {
@@ -43,9 +43,10 @@ class Timer extends Component {
   }
 
   render() {
-    const pct = Math.floor(this.state.remaining * 100 / this.props.remaining)
+    const pct = Math.floor(this.state.remaining * 100 / this.props.remaining())
     return (
       <div id="timer">
+        <div className="value">{this.state.remaining}ms</div>
         <div className="meter">
           <span style={{ width:`${pct}%` }}></span>
         </div>
@@ -56,7 +57,7 @@ class Timer extends Component {
 }
 
 Timer.propTypes = {
-  remaining: React.PropTypes.number,
+  remaining: React.PropTypes.func,
   resetCallback: React.PropTypes.func,
   endNotifier: React.PropTypes.func
 }

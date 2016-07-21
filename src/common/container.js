@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import MyColor from '../components/MyColor'
 import * as Actions from './actions'
 
-const publicStateProps = [ 'frame', 'score', 'turn', 'end' ]
+const publicStateProps = [ 'frame', 'score', 'time', 'turn', 'end' ]
 
 const mapStateToProps = ({ state }) => _.pick(state, publicStateProps)
 

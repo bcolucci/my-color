@@ -46,8 +46,8 @@ router.get('/', (req, res) => {
   res.send(renderPage(html, store.getState()))
 })
 
-//TODO
-router.post('/save', (req, res) => res.json('save', req.body));
+//TODO save
+router.post('/save', (req, res) => res.json(req.body));
 
 app.listen(port, (err) => {
   if (err) return console.error(err)
