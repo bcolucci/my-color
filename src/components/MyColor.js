@@ -18,9 +18,11 @@ class MyColor extends Component {
 
   saveTurns(end) {
     this.turns.pop()
-    axios
-      .post(`/save/${end}`, this.turns)
-      .catch((err) => console.error(err))
+    axios.post(`/save`, {
+      end: end,
+      score: this.props.score,
+      turns: this.turns
+    }).catch((err) => console.error(err))
   }
 
   resetCallback(callbackRetriever) {
@@ -44,7 +46,7 @@ class MyColor extends Component {
 
     if (end) {
       this.saveTurns(end)
-      return <Replay/>
+      return <Replay frame={this.props.frame} score={this.props.score}/>
     }
 
     this.turns.push([ turn.text, turn.color ])
@@ -55,7 +57,10 @@ class MyColor extends Component {
     return (
       <div>
         <div id="text" className={classNames(`color-${turn.color}`)}>{turn.text}</div>
-        <div id="answer">{frame === 0 ? 'Take your chance!' : 'Good, continue!'}</div>
+        <div id="answer">
+          {frame === 1 ? 'Take your chance!' : 'Good, continue!'}
+          <div id="score">{this.props.score} pts</div>
+        </div>
         <Timer remaining={TIMER_REMAINING} resetCallback={resetCallback} endNotifier={onTimerEnd}/>
         <div id="buttons">{this.createButtons()}</div>
       </div>

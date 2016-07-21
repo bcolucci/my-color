@@ -22,9 +22,3 @@ Online preview:
 - Learn more how to make server-side rendering with React (and learn more React too...)
 - Learn more about Webpack (universal JavaScript)
 - Make some machine learning (try to find the best patterns to win against the user)
-
-## Todo
-
-- Make the color button component
-- Manage the life-cycle of the state
-- Create the timer

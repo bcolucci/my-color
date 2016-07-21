@@ -1,33 +1,41 @@
 
+import _ from 'lodash'
 import * as Actions from './actions'
 
-const computePlay = (turnGenerator) =>  (previousState, playedColor) => {
-  const state = {
-    frame: previousState.frame + 1,
-    turn: previousState.turn,
-    played: playedColor
-  }
-  if (playedColor !== previousState.turn.text)
-    state.end = 'badColor'
-  else
-    state.turn = turnGenerator()
-  return state
-}
+const incScore = previousScore => previousScore === 0 ? 1
+  : Math.floor(previousScore + Math.sqrt(previousScore))
 
-const computeTimerEnd = (previousState, playedColor) => {
+const initialState = (turnGenerator) => {
   return {
-    frame: previousState.frame + 1,
-    turn: previousState.turn,
-    played: playedColor,
-    end: 'timerEnd'
+    frame: 0,
+    score: 0,
+    turn: turnGenerator()
   }
 }
 
-export default (turnGenerator) => (previousState, action) => {
-  previousState = previousState || { frame: 0, turn: turnGenerator() }
-  if (action.type === Actions.PLAY)
-    return computePlay(turnGenerator)(previousState, action.color)
-  else if (action.type === Actions.TIMER_END)
-    return computeTimerEnd(previousState, action.color)
+export default (turnGenerator) => (previousState = initialState(turnGenerator), action) => {
+  if (Actions.ACTIONS.includes(action.type)) {
+    let state = {
+      frame: previousState.frame,
+      score: previousState.score,
+      turn: previousState.turn
+    }
+    if (action.type === Actions.PLAY) {
+      let m = {
+        frame: previousState.frame + 1,
+        playedColor: action.color
+      }
+      if (m.playedColor !== state.turn.text)
+        m.end = 'badColor'
+      else {
+        m.score = incScore(previousState.score)
+        m.turn = turnGenerator()
+      }
+      state = _.merge(state, m)
+    } else if (action.type === Actions.TIMER_END)
+      state = _.merge(state, { end: 'timerEnd' })
+    console.log(JSON.stringify(state))
+    return state
+  }
   return previousState
 }
