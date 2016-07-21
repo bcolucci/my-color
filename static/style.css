@@ -17,8 +17,9 @@
 }
 
 #score{
-  font-size:3em;
+  font-size:2.2em;
   margin-top:50px;
+  margin-left:10px;
 }
 
 #score > .value{
@@ -39,6 +40,10 @@
 #timer{
   text-align:center;
   margin-top:30px;
+}
+
+#timer > .value{
+  color:#bbb;
 }
 
 .meter{
@@ -96,3 +101,11 @@
 .color-blue{color:blue}
 .color-yellow{color:yellow}
 .color-purple{color:purple}
+
+.badge{
+  padding:8px;
+  display:inline;
+  background:#eee;
+  color:#666;
+  border-radius:50%;
+}
