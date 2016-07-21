@@ -4,6 +4,7 @@ import qs from 'qs'
 import path from 'path'
 import Express from 'express'
 import bodyParser from 'body-parser'
+import low from 'lowdb'
 
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
@@ -22,6 +23,9 @@ const renderPage = (html, state) => String(fs.readFileSync(`${__dirname}/../../i
   .replace('%STATE%', JSON.stringify(state))
 
 // ---
+
+const db = low('db.json')
+db.defaults({ scores: [] }).value()
 
 const app = new Express
 const router = new Express.Router
@@ -46,8 +50,26 @@ router.get('/', (req, res) => {
   res.send(renderPage(html, store.getState()))
 })
 
+router.get('/scores', (req, res) => res.json(
+  db.get('scores')
+  .sort((row1, row2) => row2.score - row1.score)
+  .take(5)
+  .value()
+))
+
+router.get('/replay', (req, res) => {
+  const { frame, score, pseudo } = req.query
+  if (pseudo)
+    db.get('scores').push({
+      pseudo,
+      frame: Number(frame),
+      score: Number(score)
+    }).value()
+  res.redirect('/')
+})
+
 //TODO save
-router.post('/save', (req, res) => res.json(req.body));
+router.post('/save', (req, res) => res.json(req.body))
 
 app.listen(port, (err) => {
   if (err) return console.error(err)

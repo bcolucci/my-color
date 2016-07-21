@@ -8,8 +8,9 @@ a{
   color:blue!important;
 }
 
-button{
+input, button{
   padding:10px 15px;
+  text-align:center;
 }
 
 #app{
@@ -38,6 +39,19 @@ button{
 #score > .value{
   display:inline-block;
   background-color:green;
+}
+
+#best-scores{
+  text-align:center;
+  margin-top:50px;
+}
+
+#best-scores table{
+  display:inline-block;
+}
+
+#best-scores table td{
+  padding:5px 20px;
 }
 
 #answer,#buttons,#loose button{

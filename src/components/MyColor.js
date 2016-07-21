@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import axios from 'axios'
 import Timer from './Timer'
 import ColorButton from './ColorButton'
+import BestScores from './BestScores'
 import Replay from './Replay'
 
 const GITHUB = 'https://github.com/bcolucci/my-color'
@@ -41,7 +42,13 @@ class MyColor extends Component {
 
   render() {
 
-    const { frame, end, turn } = this.props
+    const buttons = this.createButtons()
+
+    const { frame, end, turn, time } = this.props
+
+    const remainingTime = (() => this.props.time).bind(this)
+    const resetCallback = this.resetCallback.bind(this)
+    const onTimerEnd = this.props.timerEnd.bind(this)
 
     if (end) {
       this.saveTurns(end)
@@ -49,10 +56,6 @@ class MyColor extends Component {
     }
 
     this.turns.push([ turn.text, turn.color ])
-
-    const remainingTime = (() => this.props.time).bind(this)
-    const resetCallback = this.resetCallback.bind(this)
-    const onTimerEnd = this.props.timerEnd.bind(this)
 
     return (
       <div>
@@ -62,10 +65,9 @@ class MyColor extends Component {
           <div id="score" className="badge">{this.props.score}pts</div>
         </div>
         <Timer remaining={remainingTime} resetCallback={resetCallback} endNotifier={onTimerEnd}/>
-        <div id="buttons">{this.createButtons()}</div>
-        <p>
-          <a href="https://github.com/bcolucci/my-color" target="_blank">{GITHUB}</a>
-        </p>
+        <div id="buttons">{buttons}</div>
+        <p><a href="https://github.com/bcolucci/my-color" target="_blank">{GITHUB}</a></p>
+        <BestScores/>
       </div>
     )
   }
