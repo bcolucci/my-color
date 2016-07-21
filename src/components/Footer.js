@@ -8,7 +8,7 @@ class Footer extends Component {
 
   render() {
     return (
-      <div>
+      <div id="footer">
         <BestScores/>
         <p><a href="https://github.com/bcolucci/my-color" target="_blank">{GITHUB}</a></p>
       </div>
