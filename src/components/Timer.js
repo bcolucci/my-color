@@ -36,7 +36,7 @@ class Timer extends Component {
   tick() {
     const remaining = this.state.remaining - TICK_INTERVAL
     this.setState({ remaining: remaining })
-    if (remaining === 0) {
+    if (remaining <= 0) {
       this.stopTimer()
       this.props.endNotifier()
     }
