@@ -13,7 +13,9 @@ const initialState = (turnGenerator) => {
     frame: 0,
     score: 0,
     time: MAX_TIME,
-    turn: turnGenerator()
+    turn: turnGenerator(),
+    ts: Date.now(),
+    elapsed: 0
   }
 }
 
@@ -22,7 +24,9 @@ export default (turnGenerator) => (previousState = initialState(turnGenerator), 
     let state = {
       frame: previousState.frame,
       score: previousState.score,
-      turn: previousState.turn
+      turn: previousState.turn,
+      elapsed: Date.now() - previousState.ts,
+      ts: Date.now()
     }
     if (action.type === Actions.PLAY) {
       let m = {

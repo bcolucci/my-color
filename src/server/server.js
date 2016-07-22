@@ -2,6 +2,7 @@
 import fs from 'fs'
 import qs from 'qs'
 import path from 'path'
+import _ from 'lodash'
 import Express from 'express'
 import bodyParser from 'body-parser'
 import low from 'lowdb'
@@ -25,7 +26,10 @@ const renderPage = (html, state) => String(fs.readFileSync(`${__dirname}/../../i
 // ---
 
 const db = low('db.json')
-db.defaults({ scores: [] }).value()
+db.defaults({
+  scores: [],
+  games: []
+}).value()
 
 const app = new Express
 const router = new Express.Router
@@ -63,13 +67,20 @@ router.get('/replay', (req, res) => {
     db.get('scores').push({
       pseudo,
       frame: Number(frame),
-      score: Number(score)
+      score: Number(score),
+      date: new Date
     }).value()
   res.redirect('/')
 })
 
-//TODO save
-router.post('/save', (req, res) => res.json(req.body))
+router.post('/save', (req, res) => {
+  const game = _.pick(req.body, [ 'end', 'score', 'turns' ])
+  game.avgElapsed = game.turns.reduce((acc, turn) => acc + Number(turn[2]), 0)
+    / game.turns.length
+  game.score = Math.floor(game.score + (1 / game.avgElapsed) * 100000)
+  db.get('games').push(game).value()
+  res.json(game.score)
+})
 
 app.listen(port, (err) => {
   if (err) return console.error(err)

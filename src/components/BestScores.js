@@ -1,6 +1,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import axios from 'axios'
+import BestScoreLine from './BestScoreLine'
 
 class BestScores extends Component {
 
@@ -21,6 +22,8 @@ class BestScores extends Component {
     if (!this.state.loaded)
       return <div/>;
 
+    const rows = this.state.bestScores.map((score, i) => <BestScoreLine key={`bs-${i}`} score={score}/>)
+
     return (
       <div id="best-scores">
         <p>Top 5 scores:</p>
@@ -30,16 +33,11 @@ class BestScores extends Component {
               <th>Pseudo</th>
               <th>Nb Turns</th>
               <th>Score</th>
+              <th>The</th>
             </tr>
           </thead>
           <tbody>
-            {this.state.bestScores.map((score, i) => (
-              <tr key={`bs-${i}`}>
-                <td>{score.pseudo}</td>
-                <td>{score.frame}</td>
-                <td>{score.score}pts</td>
-              </tr>
-            ))}
+            {rows}
           </tbody>
         </table>
       </div>
