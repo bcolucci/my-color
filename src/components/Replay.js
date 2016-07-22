@@ -17,7 +17,7 @@ class Replay extends Component {
 
   render() {
 
-    if (!this.state.score)
+    if (undefined === this.state.score)
       return <div/>
 
     const { frame } = this.props
